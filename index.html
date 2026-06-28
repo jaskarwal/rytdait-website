@@ -1,29 +1,549 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RytDait - Your Personal Nutritionist</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #185E72 0%, #1E7D94 100%); color: white; padding: 40px 24px; text-align: center; }
-        h1 { font-size: 48px; font-weight: 800; margin-bottom: 12px; letter-spacing: 1px; }
-        .tagline { font-size: 18px; opacity: 0.9; margin-bottom: 40px; }
-        .links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
-        .links a { color: white; opacity: 0.8; text-decoration: none; font-size: 14px; transition: opacity 0.2s; }
-        .links a:hover { opacity: 1; text-decoration: underline; }
-        .badge { margin-top: 40px; opacity: 0.7; font-size: 13px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RytDait — AI-Powered Personal Nutritionist</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal-dark:   #0B333F;
+      --teal-mid:    #185E72;
+      --teal-light:  #1E7D94;
+      --teal-glow:   #27A5C0;
+      --white:       #FFFFFF;
+      --white-90:    rgba(255,255,255,0.90);
+      --white-60:    rgba(255,255,255,0.60);
+      --white-20:    rgba(255,255,255,0.20);
+      --white-10:    rgba(255,255,255,0.10);
+      --white-06:    rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal-mid) 50%, #0d4a5a 100%);
+      min-height: 100vh;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ─── Noise texture overlay ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Floating blobs ─── */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 480px; height: 480px; background: var(--teal-glow); top: -120px; right: -80px; }
+    .blob-2 { width: 360px; height: 360px; background: var(--teal-light); bottom: 60px; left: -100px; }
+
+    /* ─── Layout ─── */
+    .page {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ─── Nav bar ─── */
+    nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .nav-logo span {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ─── Hero ─── */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 64px 24px 56px;
+    }
+
+    .hero-icon-wrap {
+      position: relative;
+      margin-bottom: 32px;
+    }
+    .hero-icon-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,125,148,0.35) 0%, transparent 70%);
+    }
+    .hero-icon {
+      width: 108px;
+      height: 108px;
+      border-radius: 26px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35), 0 0 0 1px var(--white-10);
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white-10);
+      border: 1px solid var(--white-20);
+      border-radius: 100px;
+      padding: 5px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--white-90);
+      margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-badge::before { content: '✦'; font-size: 10px; opacity: 0.8; }
+
+    .hero h1 {
+      font-size: clamp(44px, 8vw, 72px);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      background: linear-gradient(135deg, #FFFFFF 30%, rgba(255,255,255,0.75) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    .hero-tagline {
+      font-size: clamp(17px, 3vw, 22px);
+      font-weight: 500;
+      color: var(--white-90);
+      margin-bottom: 18px;
+      letter-spacing: 0.1px;
+    }
+
+    .hero-desc {
+      font-size: 15.5px;
+      line-height: 1.7;
+      color: var(--white-60);
+      max-width: 520px;
+      margin-bottom: 40px;
+    }
+
+    /* ─── App Store badge ─── */
+    .appstore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--white);
+      color: #0B333F;
+      border-radius: 14px;
+      padding: 13px 26px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+      transition: transform 0.18s, box-shadow 0.18s;
+      letter-spacing: 0.1px;
+    }
+    .appstore-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+    }
+    .appstore-icon {
+      width: 28px;
+      height: 28px;
+    }
+    .appstore-btn-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.2;
+    }
+    .appstore-btn-text .small { font-size: 10px; font-weight: 500; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.5px; }
+    .appstore-btn-text .big { font-size: 15px; font-weight: 700; }
+
+    /* ─── Divider ─── */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--white-10);
+      margin: 8px 0;
+    }
+
+    /* ─── Features ─── */
+    .features {
+      width: 100%;
+      padding: 12px 24px 64px;
+    }
+    .section-label {
+      text-align: center;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-glow);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      text-align: center;
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 44px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .feature-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 28px 24px;
+      backdrop-filter: blur(12px);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .feature-card:hover {
+      background: var(--white-10);
+      transform: translateY(-3px);
+    }
+    .feature-icon {
+      font-size: 30px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .feature-card h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .feature-card p {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--white-60);
+    }
+
+    /* ─── Plans ─── */
+    .plans {
+      width: 100%;
+      padding: 16px 24px 64px;
+    }
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .plan-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 18px;
+      padding: 26px 20px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      position: relative;
+      transition: background 0.2s;
+    }
+    .plan-card.featured {
+      background: rgba(30,125,148,0.22);
+      border-color: rgba(39,165,192,0.4);
+    }
+    .plan-badge {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--teal-glow);
+      color: var(--teal-dark);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+    .plan-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .plan-slots {
+      font-size: 12.5px;
+      color: var(--white-60);
+      margin-bottom: 14px;
+    }
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .plan-features li {
+      font-size: 13px;
+      color: var(--white-60);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      text-align: left;
+    }
+    .plan-features li::before {
+      content: '✓';
+      color: var(--teal-glow);
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-sep { color: var(--white-20); }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--white-60);
+      opacity: 0.5;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 16px 44px; }
+      .hero-icon { width: 90px; height: 90px; border-radius: 22px; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .plans-grid { grid-template-columns: 1fr; }
+      .features, .plans { padding-left: 16px; padding-right: 16px; }
+      footer { padding: 28px 20px 36px; }
+      .footer-links { gap: 14px; }
+    }
+
+    @media (min-width: 601px) and (max-width: 768px) {
+      .plans-grid { grid-template-columns: repeat(2, 1fr); }
+      .plans-grid .plan-card:last-child { grid-column: span 2; max-width: 260px; margin: 0 auto; width: 100%; }
+    }
+  </style>
 </head>
 <body>
-    <h1>RytDait</h1>
-    <p class="tagline">Your Personal Nutritionist</p>
-    <div class="links">
-        <a href="/privacy.html">Privacy Policy</a>
-        <a href="/terms.html">Terms of Service</a>
-        <a href="/support.html">Support</a>
-        <a href="mailto:support@rytdait.com">Contact</a>
+
+  <!-- Decorative blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="/">
+      <img src="app_icon.png" alt="RytDait icon">
+      <span>RytDait</span>
+    </a>
+    <div class="nav-links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/support.html">Support</a>
+      <a href="mailto:support@rytdait.com">Contact</a>
     </div>
-    <p class="badge">Coming soon to the App Store</p>
+  </nav>
+
+  <!-- Page content wrapper -->
+  <div class="page">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-icon-wrap">
+        <img class="hero-icon" src="app_icon.png" alt="RytDait App Icon">
+      </div>
+
+      <div class="hero-badge">AI-Powered Nutrition</div>
+
+      <h1>RytDait</h1>
+      <p class="hero-tagline">Your Personal Nutritionist</p>
+      <p class="hero-desc">
+        Get personalized, AI-crafted meal plans tailored to your goals, preferences, and lifestyle — refreshed every week so eating well never gets boring.
+      </p>
+
+      <!-- App Store badge -->
+      <a class="appstore-btn" href="#" aria-label="Coming soon to the App Store">
+        <svg class="appstore-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="28" height="28" rx="6" fill="#0B333F"/>
+          <path d="M14 5.5C14 5.5 11.2 5.6 9.3 8.3C8.1 10.1 8.4 12.5 8.4 12.5C8.4 12.5 10.4 12.6 11.9 10.7C13.3 8.9 14 5.5 14 5.5Z" fill="white"/>
+          <path d="M18.2 22.5H9.8C8.6 22.5 8 21.9 8 21.7C7.5 20.4 7 16.8 9.1 14.2C10.1 13 11.4 12.4 13 12.4C14 12.4 14.8 12.8 15.5 12.8C16.2 12.8 17 12.4 18.2 12.4C19.6 12.4 20.8 13 21.7 14.1C20 15.3 19 17 19 19C19 20.6 19.7 22 20.9 22.9C20.2 22.6 19.3 22.5 18.2 22.5Z" fill="white"/>
+        </svg>
+        <div class="appstore-btn-text">
+          <span class="small">Coming Soon to the</span>
+          <span class="big">App Store</span>
+        </div>
+      </a>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Features -->
+    <section class="features">
+      <p class="section-label">Why RytDait</p>
+      <h2 class="section-title">Everything you need to eat right</h2>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <span class="feature-icon">🥗</span>
+          <h3>Personalized Meal Plans</h3>
+          <p>AI generates plans based on your dietary goals, allergies, and taste preferences — no one-size-fits-all templates.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">📅</span>
+          <h3>Full 7-Day Plans</h3>
+          <p>Complete breakfast, lunch, and dinner schedules refreshed weekly so your nutrition stays on track all week long.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔥</span>
+          <h3>Build Your Streaks</h3>
+          <p>Stay consistent with habit-building streaks that reward your commitment to healthy eating every day.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🍜</span>
+          <h3>Multi-Cuisine Options</h3>
+          <p>Explore cuisines from around the world. Premium and Explorer plans unlock multiple cuisine slots simultaneously.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Plans -->
+    <section class="plans">
+      <p class="section-label">Plans</p>
+      <h2 class="section-title">Pick your plan</h2>
+
+      <div class="plans-grid">
+        <div class="plan-card">
+          <p class="plan-name">Free</p>
+          <p class="plan-slots">1 cuisine</p>
+          <ul class="plan-features">
+            <li>AI meal plans</li>
+            <li>7-day schedule</li>
+            <li>Streak tracking</li>
+          </ul>
+        </div>
+
+        <div class="plan-card featured">
+          <div class="plan-badge">Popular</div>
+          <p class="plan-name">Premium</p>
+          <p class="plan-slots">2 cuisines</p>
+          <ul class="plan-features">
+            <li>Everything in Free</li>
+            <li>Weekly plan refresh</li>
+            <li>2 cuisine slots</li>
+          </ul>
+        </div>
+
+        <div class="plan-card">
+          <p class="plan-name">Explorer</p>
+          <p class="plan-slots">5 cuisines</p>
+          <ul class="plan-features">
+            <li>Everything in Premium</li>
+            <li>5 cuisine slots</li>
+            <li>Early access features</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="divider" style="width:100%;"></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <span class="footer-sep">·</span>
+      <a href="/terms.html">Terms of Service</a>
+      <span class="footer-sep">·</span>
+      <a href="/support.html">Support</a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:support@rytdait.com">Contact</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 RytDait. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
