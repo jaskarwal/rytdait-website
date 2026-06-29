@@ -1,92 +1,369 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - RytDait</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-        h1 { color: #185E72; font-size: 28px; margin-bottom: 8px; }
-        h2 { color: #0B333F; font-size: 18px; margin-top: 32px; margin-bottom: 12px; }
-        p, li { font-size: 15px; color: #444; margin-bottom: 12px; }
-        ul { padding-left: 20px; margin-bottom: 16px; }
-        .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
-        .contact { background: #F0F8FA; border-radius: 12px; padding: 20px; margin-top: 32px; border: 1px solid #B2DFDB; }
-        .contact a { color: #185E72; text-decoration: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — RytDait</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal-dark:   #0B333F;
+      --teal-mid:    #185E72;
+      --teal-light:  #1E7D94;
+      --teal-glow:   #27A5C0;
+      --white:       #FFFFFF;
+      --white-90:    rgba(255,255,255,0.90);
+      --white-60:    rgba(255,255,255,0.60);
+      --white-20:    rgba(255,255,255,0.20);
+      --white-10:    rgba(255,255,255,0.10);
+      --white-06:    rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal-mid) 50%, #0d4a5a 100%);
+      min-height: 100vh;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 480px; height: 480px; background: var(--teal-glow); top: -120px; right: -80px; }
+    .blob-2 { width: 360px; height: 360px; background: var(--teal-light); bottom: 60px; left: -100px; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .nav-logo span {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--white);
+      color: var(--teal-dark) !important;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.88; color: var(--teal-dark) !important; }
+
+    /* ─── Content ─── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .content-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 40px 36px;
+      backdrop-filter: blur(12px);
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--white-10);
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-glow);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--white-60);
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 28px 0 10px;
+    }
+    p {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--white-60);
+      margin-bottom: 10px;
+    }
+    ul {
+      padding-left: 18px;
+      margin-bottom: 10px;
+    }
+    ul li {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--white-60);
+      margin-bottom: 5px;
+    }
+
+    .info-block {
+      background: rgba(39, 165, 192, 0.07);
+      border: 1px solid rgba(39, 165, 192, 0.18);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+    .info-block h2 { margin-top: 0; }
+
+    .contact-block {
+      background: rgba(39, 165, 192, 0.10);
+      border: 1px solid rgba(39, 165, 192, 0.25);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-top: 28px;
+    }
+    .contact-block h2 { margin-top: 0; }
+    .contact-block a {
+      color: var(--teal-glow);
+      text-decoration: none;
+    }
+    .contact-block a:hover { text-decoration: underline; }
+
+    /* ─── Footer ─── */
+    footer {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--white-10);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-sep { color: var(--white-20); }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--white-60);
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .content-card { padding: 28px 20px; }
+      footer { padding: 28px 20px 36px; }
+      .footer-links { gap: 14px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
-    <p class="subtitle">Last updated: June 2025</p>
 
-    <h2>1. Information We Collect</h2>
-    <p>When you use RytDait, we collect the following information:</p>
-    <ul>
-        <li>Account information: phone number or social login credentials</li>
-        <li>Profile data: name, age, gender, weight, height, health conditions, allergens, dietary preferences, and fitness goals</li>
-        <li>Usage data: meal logs, streak data, and app interaction patterns</li>
-        <li>Device information: device identifier for single-device login security</li>
-    </ul>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-    <h2>2. How We Use Your Information</h2>
-    <p>We use your information to:</p>
-    <ul>
-        <li>Generate personalised meal plans tailored to your health profile</li>
-        <li>Track your nutrition progress and streaks</li>
-        <li>Provide health-condition-aware dietary recommendations</li>
-        <li>Improve our AI meal planning algorithms</li>
-        <li>Send you meal reminders and streak notifications (with your permission)</li>
-    </ul>
-
-    <h2>3. Data Storage and Security</h2>
-    <ul>
-        <li>Your data is stored securely on encrypted cloud servers</li>
-        <li>Health information is never shared with third parties</li>
-        <li>PIN and biometric authentication protect sensitive data within the app</li>
-        <li>We use industry-standard encryption for data in transit (HTTPS/TLS)</li>
-    </ul>
-
-    <h2>4. Third-Party Services</h2>
-    <p>We use the following third-party services:</p>
-    <ul>
-        <li>Firebase Authentication (login)</li>
-        <li>OpenAI / Anthropic (meal plan generation — your profile data is sent to generate plans, but not stored by these providers)</li>
-        <li>Apple In-App Purchases (payment processing)</li>
-    </ul>
-
-    <h2>5. Your Rights</h2>
-    <p>You have the right to:</p>
-    <ul>
-        <li>Access your personal data (visible in My Info screen)</li>
-        <li>Delete your account and all associated data (Settings → My Account → Delete Account)</li>
-        <li>Export your data upon request</li>
-        <li>Opt out of notifications at any time</li>
-    </ul>
-
-    <h2>6. Data Retention</h2>
-    <ul>
-        <li>Active accounts: data retained while account is active</li>
-        <li>Deleted accounts: all data permanently removed within 30 days</li>
-        <li>Cached meal plans expire after 30 days automatically</li>
-    </ul>
-
-    <h2>7. Single-Device Policy</h2>
-    <p>For security, RytDait allows one active device per account. If you sign in on a new device, the previous session is automatically terminated.</p>
-
-    <h2>8. Children's Privacy</h2>
-    <p>RytDait is not intended for users under 16. We do not knowingly collect data from children.</p>
-
-    <h2>9. Changes to This Policy</h2>
-    <p>We may update this policy from time to time. We will notify you of significant changes via in-app notification.</p>
-
-    <div class="contact">
-        <h2 style="margin-top: 0;">10. Contact Us</h2>
-        <p>For privacy questions or data requests:</p>
-        <ul>
-            <li>Email: <a href="mailto:admin@rytdait.com">admin@rytdait.com</a></li>
-            <li>Website: <a href="https://rytdait.com">rytdait.com</a></li>
-        </ul>
+  <nav>
+    <a class="nav-logo" href="/">
+      <img src="app_icon.png" alt="RytDait icon">
+      <span>RytDait</span>
+    </a>
+    <div class="nav-links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/support.html">Support</a>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6744847938" target="_blank" rel="noopener">Download</a>
     </div>
+  </nav>
+
+  <div class="page">
+    <div class="content-card">
+      <div class="page-header">
+        <p class="page-label">Legal</p>
+        <h1>Privacy Policy</h1>
+        <p class="page-subtitle">Last updated: June 2026</p>
+      </div>
+
+      <p>RytDait ("we", "us", or "our") is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use and store it, and your rights as a user.</p>
+
+      <h2>1. Information We Collect</h2>
+      <p>We collect the following categories of information when you use RytDait:</p>
+      <ul>
+        <li><strong style="color:var(--white-90);">Account credentials:</strong> phone number or email address used for authentication via Firebase</li>
+        <li><strong style="color:var(--white-90);">Health profile:</strong> name, age, gender, weight, height, health conditions, food allergies, dietary restrictions, and fitness goals — provided by you to personalise meal plans</li>
+        <li><strong style="color:var(--white-90);">Meal &amp; usage data:</strong> meal logs, cuisine preferences, streak history, and in-app activity</li>
+        <li><strong style="color:var(--white-90);">Device information:</strong> device identifier used to enforce single-device session security</li>
+        <li><strong style="color:var(--white-90);">Purchase data:</strong> subscription status and original transaction identifiers from Apple IAP (we do not store full payment card details)</li>
+      </ul>
+
+      <h2>2. How We Use Your Information</h2>
+      <ul>
+        <li>Generate and refresh personalised 7-day meal plans tailored to your health profile and cuisine preferences</li>
+        <li>Track nutrition progress, habit streaks, and plan history</li>
+        <li>Provide health-condition-aware dietary recommendations</li>
+        <li>Manage your subscription, billing status, and access tier</li>
+        <li>Send meal reminders and streak notifications (only with your permission)</li>
+        <li>Improve the accuracy and quality of our AI meal planning models</li>
+        <li>Comply with legal obligations</li>
+      </ul>
+
+      <h2>3. Data Storage &amp; Security</h2>
+      <ul>
+        <li>Your account and profile data is stored in <strong style="color:var(--white-90);">MongoDB</strong> (cloud-hosted, encrypted at rest)</li>
+        <li>Authentication is handled by <strong style="color:var(--white-90);">Firebase Authentication</strong> (Google LLC); session tokens are stored securely on your device</li>
+        <li>All data in transit is encrypted using HTTPS/TLS</li>
+        <li>Health and profile data is never sold or shared with advertisers</li>
+        <li>Access to your data is restricted to authorised backend services only</li>
+      </ul>
+
+      <h2>4. Third-Party Services</h2>
+      <p>We use the following third-party services that may process your data:</p>
+      <ul>
+        <li><strong style="color:var(--white-90);">Firebase Authentication</strong> (Google LLC) — manages user login; subject to Google's Privacy Policy</li>
+        <li><strong style="color:var(--white-90);">Firebase Cloud Messaging</strong> (Google LLC) — delivers push notifications</li>
+        <li><strong style="color:var(--white-90);">Apple In-App Purchase</strong> — processes subscription payments on iOS; Apple receives purchase data as required for billing verification</li>
+        <li><strong style="color:var(--white-90);">AI / LLM providers</strong> (e.g. OpenAI or Anthropic) — your anonymised health profile is sent to generate meal plans; these providers do not retain your data after the request is fulfilled, per their data processing agreements</li>
+      </ul>
+
+      <div class="info-block">
+        <h2>5. Your Rights</h2>
+        <p>You have the following rights regarding your personal data:</p>
+        <ul>
+          <li><strong style="color:var(--white-90);">Access:</strong> view your stored profile via the "My Info" screen in the App</li>
+          <li><strong style="color:var(--white-90);">Correction:</strong> update your profile information at any time in-app</li>
+          <li><strong style="color:var(--white-90);">Deletion:</strong> permanently delete your account and all associated data via Settings → My Account → Delete Account; deletion is processed immediately</li>
+          <li><strong style="color:var(--white-90);">Data export:</strong> request a copy of your data by emailing admin@rytdait.com</li>
+          <li><strong style="color:var(--white-90);">Notification opt-out:</strong> disable notifications at any time in your device settings</li>
+        </ul>
+      </div>
+
+      <h2>6. Data Retention</h2>
+      <ul>
+        <li>Active accounts: data is retained for as long as your account exists</li>
+        <li>Deleted accounts: all personal data is permanently removed within 30 days of deletion</li>
+        <li>Cached meal plans on your device expire automatically after 30 days</li>
+        <li>Subscription transaction records may be retained for up to 7 years to comply with Indian tax and accounting regulations</li>
+      </ul>
+
+      <h2>7. Single-Device Policy</h2>
+      <p>For security, RytDait allows only one active session per account. Signing in on a new device automatically terminates the previous session. No additional personal data is collected for this purpose beyond the device identifier.</p>
+
+      <h2>8. Children's Privacy</h2>
+      <p>RytDait is not intended for users under the age of 16. We do not knowingly collect personal data from children. If you believe a child has provided us with personal data, please contact us at admin@rytdait.com and we will delete it promptly.</p>
+
+      <h2>9. International Users</h2>
+      <p>RytDait is operated from India. If you access the App from outside India, your data may be transferred to and processed in India. By using the App, you consent to this transfer in accordance with this Privacy Policy.</p>
+
+      <h2>10. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy periodically. Material changes will be communicated via in-app notification. Your continued use of the App following any update constitutes acceptance of the revised policy.</p>
+
+      <div class="contact-block">
+        <h2>11. Contact Us</h2>
+        <p>For privacy questions, data requests, or account deletion:</p>
+        <ul>
+          <li>Email: <a href="mailto:admin@rytdait.com">admin@rytdait.com</a></li>
+          <li>Support: <a href="mailto:support@rytdait.com">support@rytdait.com</a></li>
+          <li>Website: <a href="https://rytdait.com">rytdait.com</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <span class="footer-sep">·</span>
+      <a href="/terms.html">Terms of Service</a>
+      <span class="footer-sep">·</span>
+      <a href="/support.html">Support</a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:support@rytdait.com">Contact</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 RytDait. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>

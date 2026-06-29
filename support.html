@@ -1,146 +1,427 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support - RytDait</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8fafa;
-            color: #0B333F;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding: 60px 24px;
-        }
-        h1 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: #185E72;
-        }
-        .subtitle {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 40px;
-        }
-        .section {
-            background: white;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            border: 1px solid #e8f0f0;
-        }
-        .section h2 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #185E72;
-        }
-        .section p {
-            font-size: 15px;
-            color: #444;
-            margin-bottom: 8px;
-        }
-        a {
-            color: #185E72;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        a:hover { text-decoration: underline; }
-        .email-btn {
-            display: inline-block;
-            background: #185E72;
-            color: white;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-size: 15px;
-            font-weight: 600;
-            margin-top: 12px;
-            text-decoration: none;
-        }
-        .email-btn:hover {
-            background: #0d4a5c;
-            text-decoration: none;
-        }
-        .faq-item {
-            border-bottom: 1px solid #f0f0f0;
-            padding: 16px 0;
-        }
-        .faq-item:last-child { border-bottom: none; }
-        .faq-item h3 {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #0B333F;
-        }
-        .faq-item p {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 0;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            font-size: 13px;
-            color: #999;
-        }
-        .footer a { color: #888; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support — RytDait</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal-dark:   #0B333F;
+      --teal-mid:    #185E72;
+      --teal-light:  #1E7D94;
+      --teal-glow:   #27A5C0;
+      --white:       #FFFFFF;
+      --white-90:    rgba(255,255,255,0.90);
+      --white-60:    rgba(255,255,255,0.60);
+      --white-20:    rgba(255,255,255,0.20);
+      --white-10:    rgba(255,255,255,0.10);
+      --white-06:    rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal-mid) 50%, #0d4a5a 100%);
+      min-height: 100vh;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 480px; height: 480px; background: var(--teal-glow); top: -120px; right: -80px; }
+    .blob-2 { width: 360px; height: 360px; background: var(--teal-light); bottom: 60px; left: -100px; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .nav-logo span {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--white);
+      color: var(--teal-dark) !important;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.88; color: var(--teal-dark) !important; }
+
+    /* ─── Content ─── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .page-header {
+      text-align: center;
+      padding: 40px 0 36px;
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-glow);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 16px;
+      color: var(--white-60);
+    }
+
+    /* ─── Contact card ─── */
+    .contact-card {
+      background: rgba(39, 165, 192, 0.12);
+      border: 1px solid rgba(39, 165, 192, 0.30);
+      border-radius: 20px;
+      padding: 32px 28px;
+      text-align: center;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .contact-card-icon {
+      font-size: 36px;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .contact-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .contact-card p {
+      font-size: 14.5px;
+      color: var(--white-60);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .contact-btn {
+      display: inline-block;
+      background: var(--white);
+      color: var(--teal-dark);
+      padding: 12px 30px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    /* ─── FAQ ─── */
+    .faq-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 8px 0;
+      backdrop-filter: blur(12px);
+      margin-bottom: 20px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-glow);
+      padding: 20px 28px 4px;
+    }
+    .faq-item {
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--white-10);
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-item h3 {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white-90);
+      margin-bottom: 6px;
+    }
+    .faq-item p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--white-60);
+    }
+    .faq-item a {
+      color: var(--teal-glow);
+      text-decoration: none;
+    }
+    .faq-item a:hover { text-decoration: underline; }
+
+    /* ─── App Store card ─── */
+    .download-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 28px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      margin-bottom: 20px;
+    }
+    .download-card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .download-card p {
+      font-size: 14px;
+      color: var(--white-60);
+      margin-bottom: 20px;
+    }
+    .appstore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--white);
+      color: var(--teal-dark);
+      border-radius: 14px;
+      padding: 12px 24px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.22);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .appstore-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+    }
+    .appstore-icon { width: 26px; height: 26px; }
+    .appstore-btn-text { display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; }
+    .appstore-btn-text .small { font-size: 10px; font-weight: 500; opacity: 0.65; text-transform: uppercase; letter-spacing: 0.5px; }
+    .appstore-btn-text .big { font-size: 15px; font-weight: 700; }
+
+    /* ─── Footer ─── */
+    footer {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--white-10);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-sep { color: var(--white-20); }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--white-60);
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .contact-card, .faq-card, .download-card { padding-left: 16px; padding-right: 16px; }
+      .faq-item { padding: 16px 20px; }
+      footer { padding: 28px 20px 36px; }
+      .footer-links { gap: 14px; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Support</h1>
-        <p class="subtitle">We're here to help you get the most out of RytDait.</p>
 
-        <div class="section">
-            <h2>Contact Us</h2>
-            <p>Have a question, found a bug, or need help with your account? Reach out and we'll get back to you within 24 hours.</p>
-            <a href="mailto:support@rytdait.com" class="email-btn">Email Support</a>
-        </div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-        <div class="section">
-            <h2>Frequently Asked Questions</h2>
-
-            <div class="faq-item">
-                <h3>How do I get my meal plan?</h3>
-                <p>After creating your profile with your health details and preferences, your personalized 7-day meal plan is generated automatically. Just open the app and it's there.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>Can I change my cuisine?</h3>
-                <p>Premium users can switch between 25+ cuisines. Your macros and health conditions stay the same — only the food style changes.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>How do I cancel my subscription?</h3>
-                <p>Subscriptions are managed through the App Store. Go to Settings → Apple ID → Subscriptions → RytDait → Cancel. You'll keep access until the current period ends.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>Is my data safe?</h3>
-                <p>Your health data is encrypted and stored securely. We never share your personal information with third parties. See our <a href="https://rytdait.com/privacy.html">Privacy Policy</a> for details.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>The app isn't loading my meal plan</h3>
-                <p>Check your internet connection and try closing and reopening the app. Your plan is cached offline, so it should appear even without internet after the first load.</p>
-            </div>
-
-            <div class="faq-item">
-                <h3>How do I delete my account?</h3>
-                <p>Email us at support@rytdait.com with the subject "Delete Account" and we'll process it within 48 hours.</p>
-            </div>
-        </div>
-
-        <div class="footer">
-            <p><a href="https://rytdait.com">Home</a> · <a href="https://rytdait.com/privacy.html">Privacy Policy</a> · <a href="https://rytdait.com/terms.html">Terms of Service</a></p>
-            <p style="margin-top: 8px;">© 2025 RytDait. All rights reserved.</p>
-        </div>
+  <nav>
+    <a class="nav-logo" href="/">
+      <img src="app_icon.png" alt="RytDait icon">
+      <span>RytDait</span>
+    </a>
+    <div class="nav-links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/support.html">Support</a>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6744847938" target="_blank" rel="noopener">Download</a>
     </div>
+  </nav>
+
+  <div class="page">
+
+    <div class="page-header">
+      <p class="page-label">Help Center</p>
+      <h1>Support</h1>
+      <p>We're here to help you get the most out of RytDait.</p>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact-card">
+      <span class="contact-card-icon">✉️</span>
+      <h2>Contact Us</h2>
+      <p>Have a question, found a bug, or need help with your account?<br>We typically respond within 24 hours.</p>
+      <a href="mailto:support@rytdait.com" class="contact-btn">Email Support</a>
+    </div>
+
+    <!-- FAQ -->
+    <div class="faq-card">
+      <p class="section-label">Frequently Asked Questions</p>
+
+      <div class="faq-item">
+        <h3>How do I get my meal plan?</h3>
+        <p>After completing your profile (health details, allergies, and cuisine preferences), your personalised 7-day meal plan is generated automatically. Open the Meal Plan tab in the app to view it.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I change my cuisine preference?</h3>
+        <p>Yes. Free users have 1 cuisine slot; Premium users get 2 slots; Explorer users get 5 slots. Switch cuisines anytime from the Meal Plan screen — your health conditions and macros stay consistent regardless of cuisine.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I cancel my subscription?</h3>
+        <p>Subscriptions are managed through the App Store. Go to <strong>Settings → Apple ID → Subscriptions → RytDait → Cancel Subscription</strong>. You'll retain access until the end of the current billing period.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>When does my meal plan refresh?</h3>
+        <p>Premium and Explorer subscribers get automatic weekly refreshes (every 7 days). You can also manually refresh your plan once per week. Free users' plans do not auto-refresh.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Is my health data safe?</h3>
+        <p>Your data is encrypted at rest (MongoDB) and in transit (TLS). We never share your personal health information with advertisers or sell it to third parties. See our <a href="/privacy.html">Privacy Policy</a> for full details.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>The app isn't loading my meal plan</h3>
+        <p>Check your internet connection and try closing and reopening the app. Your plan is cached locally after the first load and should appear offline. If the issue persists, email us.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>How do I delete my account?</h3>
+        <p>Go to <strong>Settings → My Account → Delete Account</strong> in the app. This permanently deletes your account and all associated data immediately. Alternatively, email <a href="mailto:support@rytdait.com">support@rytdait.com</a> with subject "Delete Account".</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>I subscribed but premium features aren't unlocked</h3>
+        <p>Try restoring your purchases: go to <strong>Settings → Subscription</strong> in the app and tap "Restore Purchases". If the issue persists after 5 minutes, contact us with your Apple ID email.</p>
+      </div>
+    </div>
+
+    <!-- Download card -->
+    <div class="download-card">
+      <h2>Get RytDait</h2>
+      <p>Available now on iOS. Android coming soon.</p>
+      <a class="appstore-btn" href="https://apps.apple.com/app/id6744847938" target="_blank" rel="noopener" aria-label="Download on the App Store">
+        <svg class="appstore-icon" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect width="28" height="28" rx="6" fill="#0B333F"/>
+          <path d="M14 5.5C14 5.5 11.2 5.6 9.3 8.3C8.1 10.1 8.4 12.5 8.4 12.5C8.4 12.5 10.4 12.6 11.9 10.7C13.3 8.9 14 5.5 14 5.5Z" fill="white"/>
+          <path d="M18.2 22.5H9.8C8.6 22.5 8 21.9 8 21.7C7.5 20.4 7 16.8 9.1 14.2C10.1 13 11.4 12.4 13 12.4C14 12.4 14.8 12.8 15.5 12.8C16.2 12.8 17 12.4 18.2 12.4C19.6 12.4 20.8 13 21.7 14.1C20 15.3 19 17 19 19C19 20.6 19.7 22 20.9 22.9C20.2 22.6 19.3 22.5 18.2 22.5Z" fill="white"/>
+        </svg>
+        <div class="appstore-btn-text">
+          <span class="small">Download on the</span>
+          <span class="big">App Store</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <span class="footer-sep">·</span>
+      <a href="/terms.html">Terms of Service</a>
+      <span class="footer-sep">·</span>
+      <a href="/support.html">Support</a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:support@rytdait.com">Contact</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 RytDait. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>

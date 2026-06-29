@@ -1,98 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Terms of Service - RytDait</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 40px 24px; }
-        h1 { color: #185E72; font-size: 28px; margin-bottom: 8px; }
-        h2 { color: #0B333F; font-size: 18px; margin-top: 32px; margin-bottom: 12px; }
-        p, li { font-size: 15px; color: #444; margin-bottom: 12px; }
-        ul { padding-left: 20px; margin-bottom: 16px; }
-        .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
-        .warning { background: #FFF3E0; border-radius: 12px; padding: 16px; margin: 16px 0; border: 1px solid #FFE082; }
-        .contact { background: #F0F8FA; border-radius: 12px; padding: 20px; margin-top: 32px; border: 1px solid #B2DFDB; }
-        .contact a { color: #185E72; text-decoration: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms of Service — RytDait</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal-dark:   #0B333F;
+      --teal-mid:    #185E72;
+      --teal-light:  #1E7D94;
+      --teal-glow:   #27A5C0;
+      --white:       #FFFFFF;
+      --white-90:    rgba(255,255,255,0.90);
+      --white-60:    rgba(255,255,255,0.60);
+      --white-20:    rgba(255,255,255,0.20);
+      --white-10:    rgba(255,255,255,0.10);
+      --white-06:    rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal-mid) 50%, #0d4a5a 100%);
+      min-height: 100vh;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 480px; height: 480px; background: var(--teal-glow); top: -120px; right: -80px; }
+    .blob-2 { width: 360px; height: 360px; background: var(--teal-light); bottom: 60px; left: -100px; }
+
+    /* ─── Nav ─── */
+    nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .nav-logo span {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--white);
+      color: var(--teal-dark) !important;
+      padding: 8px 18px;
+      border-radius: 100px;
+      font-weight: 700 !important;
+      font-size: 13px !important;
+      transition: opacity 0.2s !important;
+    }
+    .nav-cta:hover { opacity: 0.88; color: var(--teal-dark) !important; }
+
+    /* ─── Content ─── */
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .content-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 40px 36px;
+      backdrop-filter: blur(12px);
+    }
+
+    .page-header {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--white-10);
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-glow);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: clamp(26px, 5vw, 36px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--white-60);
+    }
+
+    h2 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--teal-glow);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 28px 0 10px;
+    }
+    p {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--white-60);
+      margin-bottom: 10px;
+    }
+    ul {
+      padding-left: 18px;
+      margin-bottom: 10px;
+    }
+    ul li {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: var(--white-60);
+      margin-bottom: 5px;
+    }
+
+    .warning-block {
+      background: rgba(255, 180, 0, 0.08);
+      border: 1px solid rgba(255, 200, 0, 0.2);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 20px 0;
+    }
+    .warning-block p, .warning-block li {
+      color: rgba(255, 235, 150, 0.85);
+    }
+    .warning-block h2 {
+      color: #FFD54F;
+      margin-top: 0;
+    }
+
+    .contact-block {
+      background: rgba(39, 165, 192, 0.10);
+      border: 1px solid rgba(39, 165, 192, 0.25);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-top: 28px;
+    }
+    .contact-block h2 { margin-top: 0; }
+    .contact-block a {
+      color: var(--teal-glow);
+      text-decoration: none;
+    }
+    .contact-block a:hover { text-decoration: underline; }
+
+    /* ─── Footer ─── */
+    footer {
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 32px 28px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--white-10);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-sep { color: var(--white-20); }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--white-60);
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .content-card { padding: 28px 20px; }
+      footer { padding: 28px 20px 36px; }
+      .footer-links { gap: 14px; }
+    }
+  </style>
 </head>
 <body>
-    <h1>Terms of Service</h1>
-    <p class="subtitle">Last updated: June 2025</p>
 
-    <h2>1. Acceptance of Terms</h2>
-    <p>By downloading, installing, or using RytDait, you agree to these Terms of Service. If you do not agree, do not use the app.</p>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-    <h2>2. Description of Service</h2>
-    <p>RytDait is an AI-powered meal planning app that generates personalised nutrition plans based on your health profile. The app is NOT a substitute for professional medical advice.</p>
-
-    <div class="warning">
-        <h2 style="margin-top: 0;">3. Medical Disclaimer</h2>
-        <p>⚠️ <strong>IMPORTANT:</strong> RytDait provides general nutritional guidance only. It is NOT medical advice.</p>
-        <ul>
-            <li>Always consult your doctor before making dietary changes, especially if you have health conditions</li>
-            <li>Do not use this app to self-treat any medical condition</li>
-            <li>AI-generated meal plans may contain errors — verify nutritional information independently</li>
-            <li>In case of medical emergency, contact your healthcare provider immediately</li>
-        </ul>
+  <nav>
+    <a class="nav-logo" href="/">
+      <img src="app_icon.png" alt="RytDait icon">
+      <span>RytDait</span>
+    </a>
+    <div class="nav-links">
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/support.html">Support</a>
+      <a class="nav-cta" href="https://apps.apple.com/app/id6744847938" target="_blank" rel="noopener">Download</a>
     </div>
+  </nav>
 
-    <h2>4. Subscriptions and Payments</h2>
-    <ul>
-        <li>Free tier: basic meal plan with limited features</li>
-        <li>Premium / Voyager: paid subscriptions billed monthly or annually via in-app purchase</li>
-        <li>Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period</li>
-        <li>Manage or cancel subscriptions in your device's subscription settings</li>
-        <li>No refunds for partial billing periods (governed by Apple's refund policy)</li>
-    </ul>
+  <div class="page">
+    <div class="content-card">
+      <div class="page-header">
+        <p class="page-label">Legal</p>
+        <h1>Terms of Service</h1>
+        <p class="page-subtitle">Last updated: June 2026</p>
+      </div>
 
-    <h2>5. Account Security</h2>
-    <ul>
-        <li>You are responsible for maintaining the security of your account</li>
-        <li>One active device per account (security enforcement)</li>
-        <li>We are not responsible for unauthorised access due to shared credentials</li>
-    </ul>
+      <h2>1. Acceptance of Terms</h2>
+      <p>By downloading, installing, or using RytDait ("the App"), you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree, do not use the App.</p>
 
-    <h2>6. Acceptable Use</h2>
-    <p>You agree NOT to:</p>
-    <ul>
-        <li>Reverse engineer or decompile the app</li>
-        <li>Use the app for commercial meal planning services</li>
-        <li>Share your account with others</li>
-        <li>Attempt to bypass subscription restrictions</li>
-        <li>Provide false health information</li>
-    </ul>
+      <h2>2. Description of Service</h2>
+      <p>RytDait is an AI-powered meal planning application that generates personalised nutrition plans based on your health profile, dietary preferences, and goals. The App is <strong style="color:var(--white-90);">not a substitute for professional medical advice, diagnosis, or treatment.</strong></p>
 
-    <h2>7. Intellectual Property</h2>
-    <ul>
-        <li>All meal plans, recipes, and content generated by RytDait are owned by us</li>
-        <li>You may share individual meal cards for personal use</li>
-        <li>You may not republish or commercialise generated content</li>
-    </ul>
-
-    <h2>8. Limitation of Liability</h2>
-    <p>RytDait is provided "as is" without warranties. We are not liable for:</p>
-    <ul>
-        <li>Health outcomes from following generated meal plans</li>
-        <li>Allergic reactions (you are responsible for verifying allergen information)</li>
-        <li>Data loss due to account deletion or technical issues</li>
-        <li>Service interruptions or downtime</li>
-    </ul>
-
-    <h2>9. Termination</h2>
-    <p>We reserve the right to terminate accounts that violate these terms. You may delete your account at any time from Settings → My Account → Delete Account.</p>
-
-    <h2>10. Governing Law</h2>
-    <p>These terms are governed by the laws of India. Any disputes shall be resolved in the courts of India.</p>
-
-    <div class="contact">
-        <h2 style="margin-top: 0;">11. Contact Us</h2>
-        <p>For questions about these terms:</p>
+      <div class="warning-block">
+        <h2>3. Medical Disclaimer</h2>
+        <p><strong>IMPORTANT:</strong> RytDait provides general nutritional guidance only — not medical advice.</p>
         <ul>
-            <li>Email: <a href="mailto:support@rytdait.com">support@rytdait.com</a></li>
-            <li>Website: <a href="https://rytdait.com">rytdait.com</a></li>
+          <li>Always consult a qualified healthcare professional before making significant dietary changes, particularly if you have an existing health condition</li>
+          <li>Do not use this App to self-treat, diagnose, or manage any medical condition</li>
+          <li>AI-generated meal plans may contain errors; verify allergen and nutritional information independently</li>
+          <li>In a medical emergency, contact your healthcare provider or emergency services immediately</li>
         </ul>
+      </div>
+
+      <h2>4. Subscriptions &amp; In-App Purchases</h2>
+      <p>RytDait offers the following subscription plans, billed via Apple In-App Purchase (IAP):</p>
+      <ul>
+        <li><strong style="color:var(--white-90);">Free:</strong> limited features, 1 cuisine slot, no plan refresh</li>
+        <li><strong style="color:var(--white-90);">Premium:</strong> $12.99/month or $99.99/year — 2 cuisine slots, weekly plan refresh</li>
+        <li><strong style="color:var(--white-90);">Explorer:</strong> $19.99/month or $199.99/year — 5 cuisine slots, early access features</li>
+      </ul>
+
+      <div style="background:rgba(26,156,176,0.1);border:1px solid rgba(26,156,176,0.3);border-radius:12px;padding:16px 20px;margin:16px 0;">
+        <p style="margin:0 0 8px;font-weight:600;color:var(--accent);">⚠️ Billing is managed by Apple / Google — not by RytDait</p>
+        <p style="margin:0;font-size:0.9rem;color:var(--white-70);line-height:1.6;">
+          All payments are processed directly by Apple (App Store) or Google (Google Play). RytDait does not handle, store, or have access to your payment details.
+          When you cancel a subscription, you retain access until the <strong style="color:var(--white-90);">end of the current paid period</strong> — cancellation does not trigger an immediate refund for the remaining days.
+          Refund requests must be submitted directly to <a href="https://reportaproblem.apple.com" style="color:var(--accent);">Apple</a> or Google Play support.
+        </p>
+      </div>
+
+      <ul>
+        <li>Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current billing period</li>
+        <li>Your Apple ID or Google account is charged at confirmation of purchase and upon each renewal</li>
+        <li><strong style="color:var(--white-90);">iOS:</strong> Manage or cancel via Settings → Apple ID → Subscriptions → RytDait</li>
+        <li><strong style="color:var(--white-90);">Android:</strong> Manage or cancel via Google Play → Subscriptions → RytDait</li>
+        <li>No refunds are issued by RytDait for unused portions of a billing period; all refund decisions are made solely by Apple or Google under their respective policies</li>
+        <li>We reserve the right to change subscription pricing; you will be notified before any price change takes effect on your account</li>
+      </ul>
+
+      <h2>5. Free Trial &amp; Grace Periods</h2>
+      <ul>
+        <li>First-time users who have never subscribed may receive a 3-day Premium trial ("Streak Trial"); eligibility is determined by the App</li>
+        <li>IAP billing grace periods (up to 36 hours) may apply during payment retry — access continues during this window</li>
+        <li>Explorer downgrade grace: if your Explorer subscription lapses, the App may retain additional plan data in our servers for up to 3 days before removal</li>
+      </ul>
+
+      <h2>6. Account Security</h2>
+      <ul>
+        <li>You are responsible for maintaining the confidentiality of your login credentials</li>
+        <li>RytDait enforces a single-device session policy; signing in on a new device terminates the previous session</li>
+        <li>We are not liable for unauthorised access resulting from shared or compromised credentials</li>
+      </ul>
+
+      <h2>7. Acceptable Use</h2>
+      <p>You agree not to:</p>
+      <ul>
+        <li>Reverse-engineer, decompile, or extract the App's source code</li>
+        <li>Use the App to operate a commercial meal planning or nutrition service</li>
+        <li>Share your account credentials with any other person</li>
+        <li>Attempt to circumvent subscription or feature restrictions by technical means</li>
+        <li>Submit false or misleading health information</li>
+        <li>Violate any applicable local, national, or international law</li>
+      </ul>
+
+      <h2>8. Intellectual Property</h2>
+      <ul>
+        <li>All content generated by RytDait, including meal plans, recipes, and nutritional data, is the property of RytDait</li>
+        <li>You may share individual meal cards for personal, non-commercial use</li>
+        <li>You may not republish, sell, or commercialise any generated content without express written permission</li>
+      </ul>
+
+      <h2>9. Limitation of Liability</h2>
+      <p>The App is provided "as is" without warranties of any kind. To the maximum extent permitted by applicable law, RytDait is not liable for:</p>
+      <ul>
+        <li>Health outcomes arising from following AI-generated meal plans</li>
+        <li>Allergic reactions (you are solely responsible for verifying allergen information)</li>
+        <li>Data loss due to account deletion, device failure, or service interruption</li>
+        <li>Loss of revenue, goodwill, or profits arising from use of the App</li>
+      </ul>
+
+      <h2>10. Termination</h2>
+      <p>We reserve the right to suspend or terminate accounts that violate these Terms, with or without notice. You may delete your account at any time from the App via Settings → My Account → Delete Account. Deletion is permanent and removes all associated data.</p>
+
+      <h2>11. Changes to Terms</h2>
+      <p>We may update these Terms from time to time. Continued use of the App after changes are posted constitutes acceptance of the updated Terms. We will notify you of material changes via in-app notification.</p>
+
+      <h2>12. Governing Law</h2>
+      <p>These Terms are governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these Terms shall be subject to the exclusive jurisdiction of the courts of India.</p>
+
+      <div class="contact-block">
+        <h2>13. Contact Us</h2>
+        <p>For questions about these Terms:</p>
+        <ul>
+          <li>Email: <a href="mailto:support@rytdait.com">support@rytdait.com</a></li>
+          <li>Website: <a href="https://rytdait.com">rytdait.com</a></li>
+        </ul>
+      </div>
     </div>
+  </div>
+
+  <footer>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <span class="footer-sep">·</span>
+      <a href="/terms.html">Terms of Service</a>
+      <span class="footer-sep">·</span>
+      <a href="/support.html">Support</a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:support@rytdait.com">Contact</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 RytDait. All rights reserved.</p>
+  </footer>
+
 </body>
 </html>
