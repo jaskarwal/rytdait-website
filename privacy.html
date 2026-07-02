@@ -280,7 +280,7 @@
 
       <h2>2. How We Use Your Information</h2>
       <ul>
-        <li>Generate and refresh personalised 7-day meal plans tailored to your health profile and cuisine preferences</li>
+        <li>Generate and refresh personalised 7-day meal plans on our backend servers (using third-party AI providers — see Section 4)</li>
         <li>Track nutrition progress, habit streaks, and plan history</li>
         <li>Provide health-condition-aware dietary recommendations</li>
         <li>Manage your subscription, billing status, and access tier</li>
@@ -304,7 +304,7 @@
         <li><strong style="color:var(--white-90);">Firebase Authentication</strong> (Google LLC) — manages user login; subject to Google's Privacy Policy</li>
         <li><strong style="color:var(--white-90);">Firebase Cloud Messaging</strong> (Google LLC) — delivers push notifications</li>
         <li><strong style="color:var(--white-90);">Apple In-App Purchase</strong> — processes subscription payments on iOS; Apple receives purchase data as required for billing verification</li>
-        <li><strong style="color:var(--white-90);">AI / LLM providers</strong> (e.g. OpenAI or Anthropic) — your anonymised health profile is sent to generate meal plans; these providers do not retain your data after the request is fulfilled, per their data processing agreements</li>
+        <li><strong style="color:var(--white-90);">AI / LLM providers</strong> (OpenAI and Anthropic) — meal plans are generated on our servers only; the app never contacts AI providers directly. We send diet-related profile data (e.g. age, weight, health conditions, allergies, goals, cuisine, and meal preferences) to generate plans. We do <strong style="color:var(--white-90);">not</strong> send your name, email, phone number, or account identifiers to AI providers</li>
       </ul>
 
       <div class="info-block">

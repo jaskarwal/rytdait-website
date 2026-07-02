@@ -3,7 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RytDait — AI-Powered Personal Nutritionist</title>
+  <title>RytDait — AI Meal Planner for Home &amp; Travel</title>
+  <meta name="description" content="Personalized AI meal plans for your health goals — at home or abroad. Weekly 7-day plans, global cuisines, and streak tracking. Free on iOS. Android coming soon.">
+  <meta name="keywords" content="AI meal planner, weekly meal plan, healthy eating, travel nutrition, multi cuisine diet, meal prep app">
+  <link rel="canonical" href="https://rytdait.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rytdait.com/">
+  <meta property="og:title" content="RytDait — Eat well anywhere">
+  <meta property="og:description" content="Your week of healthy meals, planned in 60 seconds. AI meal plans for home cooks and travelers who won't compromise on nutrition.">
+  <meta property="og:image" content="https://rytdait.com/app_icon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="theme-color" content="#0B333F">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -446,15 +456,148 @@
       opacity: 0.5;
     }
 
+    /* ─── Platform note ─── */
+    .platform-note {
+      margin-top: 18px;
+      font-size: 13px;
+      color: var(--white-60);
+      letter-spacing: 0.2px;
+    }
+    .platform-note strong { color: var(--white-90); font-weight: 600; }
+
+    /* ─── Audiences ─── */
+    .audiences {
+      width: 100%;
+      padding: 16px 24px 56px;
+    }
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .audience-card {
+      background: linear-gradient(145deg, rgba(39,165,192,0.12) 0%, var(--white-06) 100%);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 28px 24px;
+      backdrop-filter: blur(12px);
+    }
+    .audience-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: -0.2px;
+    }
+    .audience-card p {
+      font-size: 13.5px;
+      line-height: 1.65;
+      color: var(--white-60);
+    }
+    .audience-emoji {
+      font-size: 28px;
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    /* ─── Waitlist ─── */
+    .waitlist {
+      width: 100%;
+      padding: 16px 24px 64px;
+    }
+    .waitlist-card {
+      background: var(--white-06);
+      border: 1px solid var(--white-20);
+      border-radius: 24px;
+      padding: 40px 32px;
+      text-align: center;
+      backdrop-filter: blur(14px);
+      max-width: 560px;
+      margin: 0 auto;
+    }
+    .waitlist-card h2 {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .waitlist-card > p {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--white-60);
+      margin-bottom: 24px;
+    }
+    .waitlist-form {
+      display: flex;
+      gap: 10px;
+      max-width: 420px;
+      margin: 0 auto;
+    }
+    .waitlist-form input[type="email"] {
+      flex: 1;
+      min-width: 0;
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--white-20);
+      background: rgba(11, 51, 63, 0.5);
+      color: var(--white);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .waitlist-form input[type="email"]::placeholder { color: var(--white-60); }
+    .waitlist-form input[type="email"]:focus { border-color: var(--teal-glow); }
+    .waitlist-form button {
+      padding: 14px 20px;
+      border-radius: 12px;
+      border: none;
+      background: var(--teal-glow);
+      color: var(--teal-dark);
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .waitlist-form button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(39,165,192,0.35);
+    }
+    .waitlist-fine {
+      margin-top: 14px;
+      font-size: 11.5px;
+      color: var(--white-60);
+      opacity: 0.75;
+    }
+    .waitlist-success {
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--teal-glow);
+    }
+    .plan-badge-travel {
+      background: rgba(255,255,255,0.15);
+      color: var(--white-90);
+      border: 1px solid var(--white-20);
+    }
+
     /* ─── Responsive ─── */
     @media (max-width: 600px) {
       nav { padding: 18px 20px; }
-      .nav-links { display: none; }
+      .nav-links { gap: 14px; }
+      .nav-links .nav-hide-mobile { display: none; }
       .hero { padding: 48px 16px 44px; }
       .hero-icon { width: 90px; height: 90px; border-radius: 22px; }
       .feature-grid { grid-template-columns: 1fr; }
+      .audience-grid { grid-template-columns: 1fr; }
       .plans-grid { grid-template-columns: 1fr; }
-      .features, .plans { padding-left: 16px; padding-right: 16px; }
+      .features, .plans, .audiences, .waitlist { padding-left: 16px; padding-right: 16px; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-form button { width: 100%; }
+      .waitlist-card { padding: 32px 20px; }
       footer { padding: 28px 20px 36px; }
       .footer-links { gap: 14px; }
     }
@@ -478,10 +621,11 @@
       <span>RytDait</span>
     </a>
     <div class="nav-links">
-      <a href="/privacy.html">Privacy</a>
-      <a href="/terms.html">Terms</a>
-      <a href="/support.html">Support</a>
-      <a href="mailto:support@rytdait.com">Contact</a>
+      <a href="#features">Features</a>
+      <a href="#plans">Plans</a>
+      <a href="#waitlist">Updates</a>
+      <a href="/support.html" class="nav-hide-mobile">Support</a>
+      <a href="/privacy.html" class="nav-hide-mobile">Privacy</a>
     </div>
   </nav>
 
@@ -494,12 +638,12 @@
         <img class="hero-icon" src="app_icon.png" alt="RytDait App Icon">
       </div>
 
-      <div class="hero-badge">AI-Powered Nutrition</div>
+      <div class="hero-badge">AI Meal Planning</div>
 
       <h1>RytDait</h1>
-      <p class="hero-tagline">Your Personal Nutritionist</p>
+      <p class="hero-tagline">Eat well anywhere — your week planned in 60 seconds</p>
       <p class="hero-desc">
-        Get personalized, AI-crafted meal plans tailored to your goals, preferences, and lifestyle — refreshed every week so eating well never gets boring.
+        Personalized 7-day meal plans for your health goals — whether you're meal prepping at home or exploring new cuisines abroad. Refreshed weekly so eating right never gets boring.
       </p>
 
       <!-- Download badges -->
@@ -531,12 +675,35 @@
           </div>
         </div>
       </div>
+
+      <p class="platform-note"><strong>iOS</strong> available now &nbsp;·&nbsp; <strong>Android</strong> coming soon</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Audiences -->
+    <section class="audiences">
+      <p class="section-label">Built for you</p>
+      <h2 class="section-title">At home or on the road</h2>
+
+      <div class="audience-grid">
+        <div class="audience-card">
+          <span class="audience-emoji">🏠</span>
+          <h3>Busy at home</h3>
+          <p>Stop asking "what's for dinner?" every night. Get a full week of breakfast, lunch, and dinner — tailored to your goals, allergies, and tastes.</p>
+        </div>
+        <div class="audience-card">
+          <span class="audience-emoji">✈️</span>
+          <h3>Traveling healthy</h3>
+          <p>New city, new cuisine — same health goals. Switch between global cuisines and keep eating well without resorting to tourist traps or random takeout.</p>
+        </div>
+      </div>
     </section>
 
     <div class="divider"></div>
 
     <!-- Features -->
-    <section class="features">
+    <section class="features" id="features">
       <p class="section-label">Why RytDait</p>
       <h2 class="section-title">Everything you need to eat right</h2>
 
@@ -544,22 +711,22 @@
         <div class="feature-card">
           <span class="feature-icon">🥗</span>
           <h3>Personalized Meal Plans</h3>
-          <p>AI generates plans based on your dietary goals, allergies, and taste preferences — no one-size-fits-all templates.</p>
+          <p>AI builds plans around your dietary goals, allergies, and preferences — not generic templates copied for everyone.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon">📅</span>
           <h3>Full 7-Day Plans</h3>
-          <p>Complete breakfast, lunch, and dinner schedules refreshed weekly so your nutrition stays on track all week long.</p>
+          <p>Complete breakfast, lunch, and dinner for the whole week. Premium plans refresh automatically so you always have something new.</p>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🌍</span>
+          <h3>Global Cuisines</h3>
+          <p>Indian, Mediterranean, Mexican, Japanese, and more. Save multiple cuisines and switch when you travel or crave variety.</p>
         </div>
         <div class="feature-card">
           <span class="feature-icon">🔥</span>
           <h3>Build Your Streaks</h3>
-          <p>Stay consistent with habit-building streaks that reward your commitment to healthy eating every day.</p>
-        </div>
-        <div class="feature-card">
-          <span class="feature-icon">🍜</span>
-          <h3>Multi-Cuisine Options</h3>
-          <p>Explore cuisines from around the world. Premium and Explorer plans unlock multiple cuisine slots simultaneously.</p>
+          <p>Small daily wins add up. Streak tracking keeps you consistent without guilt — habits, not punishment.</p>
         </div>
       </div>
     </section>
@@ -567,14 +734,14 @@
     <div class="divider"></div>
 
     <!-- Plans -->
-    <section class="plans">
+    <section class="plans" id="plans">
       <p class="section-label">Plans</p>
-      <h2 class="section-title">Pick your plan</h2>
+      <h2 class="section-title">Start free, upgrade when you're ready</h2>
 
       <div class="plans-grid">
         <div class="plan-card">
           <p class="plan-name">Free</p>
-          <p class="plan-price-free">₹0</p>
+          <p class="plan-price-free">$0</p>
           <p class="plan-slots">1 cuisine slot</p>
           <ul class="plan-features">
             <li>AI meal plans</li>
@@ -599,6 +766,7 @@
         </div>
 
         <div class="plan-card">
+          <div class="plan-badge plan-badge-travel">Best for travelers</div>
           <p class="plan-name">Explorer</p>
           <div class="plan-price-wrap">
             <span class="plan-price">$19.99</span><span class="plan-per">/mo</span>
@@ -607,10 +775,30 @@
           <p class="plan-slots">5 cuisine slots</p>
           <ul class="plan-features">
             <li>Everything in Premium</li>
-            <li>5 cuisine slots</li>
-            <li>Early access features</li>
+            <li>5 cuisines — home &amp; abroad</li>
+            <li>Monthly cuisine switches</li>
           </ul>
         </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Waitlist -->
+    <section class="waitlist" id="waitlist">
+      <div class="waitlist-card">
+        <p class="section-label" style="margin-bottom:12px;">Stay in the loop</p>
+        <h2>Get launch updates</h2>
+        <p>Android release, new cuisines, and travel-friendly features — we'll email you when it matters. No spam.</p>
+        <form class="waitlist-form" action="https://formsubmit.co/support@rytdait.com" method="POST">
+          <input type="email" name="email" placeholder="you@email.com" required autocomplete="email" aria-label="Email address">
+          <input type="hidden" name="_subject" value="RytDait waitlist signup">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://rytdait.com/?joined=1">
+          <button type="submit">Notify me</button>
+        </form>
+        <p class="waitlist-fine">Unsubscribe anytime · We only email about RytDait</p>
+        <p class="waitlist-success" id="waitlist-success" hidden>You're on the list — thank you!</p>
       </div>
     </section>
 
@@ -630,6 +818,30 @@
     </div>
     <p class="footer-copy">&copy; 2026 RytDait. All rights reserved.</p>
   </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "RytDait",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "iOS",
+    "description": "AI-powered weekly meal plans for health goals at home and while traveling.",
+    "url": "https://rytdait.com",
+    "downloadUrl": "https://apps.apple.com/app/id6744847938",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+  <script>
+    if (new URLSearchParams(window.location.search).get('joined') === '1') {
+      var el = document.getElementById('waitlist-success');
+      if (el) { el.hidden = false; el.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+    }
+  </script>
 
 </body>
 </html>
