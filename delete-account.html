@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Account — RytDait</title>
+  <meta name="description" content="Request deletion of your RytDait account and associated data.">
+  <link rel="canonical" href="https://rytdait.com/delete-account.html">
+  <meta name="theme-color" content="#0B333F">
+  <meta name="robots" content="index,follow">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --teal-dark:   #0B333F;
+      --teal-mid:    #185E72;
+      --teal-light:  #1E7D94;
+      --teal-glow:   #27A5C0;
+      --white:       #FFFFFF;
+      --white-90:    rgba(255,255,255,0.90);
+      --white-60:    rgba(255,255,255,0.60);
+      --white-20:    rgba(255,255,255,0.20);
+      --white-10:    rgba(255,255,255,0.10);
+      --white-06:    rgba(255,255,255,0.06);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(160deg, var(--teal-dark) 0%, var(--teal-mid) 50%, #0d4a5a 100%);
+      min-height: 100vh;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 { width: 480px; height: 480px; background: var(--teal-glow); top: -120px; right: -80px; }
+    .blob-2 { width: 360px; height: 360px; background: var(--teal-light); bottom: 60px; left: -100px; }
+
+    nav {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+    }
+    .nav-logo span {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .page-header {
+      text-align: center;
+      padding: 40px 0 36px;
+    }
+    .page-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--teal-glow);
+      margin-bottom: 10px;
+    }
+    .page-header h1 {
+      font-size: clamp(30px, 6vw, 44px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .page-header p {
+      font-size: 16px;
+      color: var(--white-60);
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--white-06);
+      border: 1px solid var(--white-10);
+      border-radius: 20px;
+      padding: 28px;
+      backdrop-filter: blur(12px);
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .card p, .card li {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: var(--white-60);
+    }
+    .card ol, .card ul {
+      margin: 10px 0 0 18px;
+    }
+    .card li { margin-bottom: 8px; }
+    .card a {
+      color: var(--teal-glow);
+      text-decoration: none;
+    }
+    .card a:hover { text-decoration: underline; }
+    .card strong { color: var(--white-90); }
+
+    .contact-card {
+      background: rgba(39, 165, 192, 0.12);
+      border: 1px solid rgba(39, 165, 192, 0.30);
+      border-radius: 20px;
+      padding: 32px 28px;
+      text-align: center;
+      margin-bottom: 20px;
+      backdrop-filter: blur(12px);
+    }
+    .contact-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .contact-card p {
+      font-size: 14.5px;
+      color: var(--white-60);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .contact-btn {
+      display: inline-block;
+      background: var(--white);
+      color: var(--teal-dark);
+      padding: 12px 30px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.18s, box-shadow 0.18s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    }
+    .contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 28px 28px 40px;
+    }
+    .footer-divider {
+      height: 1px;
+      background: var(--white-10);
+      max-width: 760px;
+      margin: 0 auto 24px;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 18px;
+      margin-bottom: 14px;
+    }
+    .footer-links a {
+      color: var(--white-60);
+      text-decoration: none;
+      font-size: 13px;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-sep { color: var(--white-20); }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--white-60);
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .nav-links { display: none; }
+      .card, .contact-card { padding-left: 20px; padding-right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+
+  <nav>
+    <a class="nav-logo" href="/">
+      <img src="app_icon.png" alt="RytDait icon">
+      <span>RytDait</span>
+    </a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/support.html">Support</a>
+      <a href="/privacy.html">Privacy</a>
+    </div>
+  </nav>
+
+  <div class="page">
+
+    <div class="page-header">
+      <p class="page-label">Privacy</p>
+      <h1>Delete your account</h1>
+      <p>Request deletion of your RytDait account and associated data.</p>
+    </div>
+
+    <div class="card">
+      <h2>Delete in the app (fastest)</h2>
+      <ol>
+        <li>Open the RytDait app and sign in.</li>
+        <li>Go to <strong>Settings → My Account → Delete Account</strong>.</li>
+        <li>Confirm deletion. Your account and associated data are permanently deleted.</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>Request by email</h2>
+      <p>If you cannot use the app, email us to request deletion:</p>
+      <ol>
+        <li>Send an email to <a href="mailto:support@rytdait.com?subject=Delete%20Account">support@rytdait.com</a> with subject <strong>Delete Account</strong>.</li>
+        <li>Include the email address used for your RytDait account.</li>
+        <li>We will verify ownership and delete your account and associated data within <strong>30 days</strong> (usually sooner).</li>
+      </ol>
+    </div>
+
+    <div class="card">
+      <h2>What is deleted</h2>
+      <ul>
+        <li>Account credentials and profile information</li>
+        <li>Health / preference data used for meal planning</li>
+        <li>Meal plans and meal logs stored for your account</li>
+        <li>Subscription status records we store for your account</li>
+      </ul>
+      <p style="margin-top:14px;">App Store / Google Play billing history is managed by Apple or Google and may be retained by them under their policies. Cancel any active subscription in your store account settings to stop future charges.</p>
+    </div>
+
+    <div class="contact-card">
+      <h2>Need help?</h2>
+      <p>Questions about deletion or your data — we’re here to help.</p>
+      <a href="mailto:support@rytdait.com?subject=Delete%20Account" class="contact-btn">Email Delete Request</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-divider"></div>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <span class="footer-sep">·</span>
+      <a href="/terms.html">Terms of Service</a>
+      <span class="footer-sep">·</span>
+      <a href="/support.html">Support</a>
+      <span class="footer-sep">·</span>
+      <a href="/delete-account.html">Delete Account</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 RytDait. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
